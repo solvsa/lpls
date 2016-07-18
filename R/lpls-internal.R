@@ -21,21 +21,21 @@
     #NIPALS
     for(k in 1:niter){
       t2<-.projectonto(datalist[[1]],scorelist[[1]]$t1)
-      if(truncvec[2]) t2 <- lenth.trunc(t2, alpha=level[2])$w
-      scorelist[[1]]$t2 <- lnorm(t2)
+      if(truncvec[2]) t2 <- .lenth.trunc(t2, alpha=level[2])$w
+      scorelist[[1]]$t2 <- .lnorm(t2)
       
       for(j in 2:nmat){
         t2<-.projectonto(datalist[[j]],scorelist[[(j-1)]]$t2)
         if(truncvec[2*j]) t2 <- .lenth.trunc(t2, alpha=level[2*j])$w
-        scorelist[[j]]$t2<-lnorm(t2)
+        scorelist[[j]]$t2<-.lnorm(t2)
       }
-      t1<-projectonto(datalist[[nmat]],scorelist[[nmat]]$t2)
+      t1<-.projectonto(datalist[[nmat]],scorelist[[nmat]]$t2)
       if(truncvec[2*j-1]) t1 <- .lenth.trunc(t1, alpha=level[2*j-1])$w
-      scorelist[[nmat]]$t1 <- lnorm(t1)
+      scorelist[[nmat]]$t1 <- .lnorm(t1)
       for(j in (nmat-1):1){
         t1<-.projectonto(datalist[[j]],scorelist[[(j+1)]]$t1)
         if(truncvec[2*j-1]) t1 <- .lenth.trunc(t1, alpha=level[2*j-1])$w
-        scorelist[[j]]$t1 <- lnorm(t1)
+        scorelist[[j]]$t1 <- .lnorm(t1)
       }
     }
     return(scorelist)
@@ -66,7 +66,7 @@
 
     #Orthogonalize b if multiple b's
     if(A.na && q>1){
-      svd1 <- svd.nipals(b, 10, q)
+      svd1 <- .svd.nipals(b, 10, q)
       b <- b%*%svd1$v
     }
   
@@ -115,7 +115,7 @@
     relchange <- 1
     change <- numeric()
     while(relchange > tol & j<=max.niter){        
-      uvd <- svd(X.imp)
+      uvd <- .svd(X.imp)
       
       if(initiate){
         ssx <- rep(0,ncomp)
@@ -173,16 +173,16 @@
     
     for(j in 1:ncomp){
       
-      t.x <- lnorm(rnorm(n,0,1))
+      t.x <- .lnorm(rnorm(n,0,1))
       #NIPALS
       for(k in 1:niter)
       {
-        w.x <- lnorm(projectonto(X,t.x))#,miss.x1))
-        t.x <- projectonto(t(X),w.x)##,miss.x2)
+        w.x <- .lnorm(.projectonto(X,t.x))#,miss.x1))
+        t.x <- .projectonto(t(X),w.x)##,miss.x2)
         x.scores <- t.x
         dj <- sqrt(drop(crossprod(t.x)))
-        t.x <- lnorm(t.x)
-        p.x <- projectonto(X,x.scores)##,miss.x1)
+        t.x <- .lnorm(t.x)
+        p.x <- .projectonto(X,x.scores)##,miss.x1)
       }
       X <- X - x.scores%*%t(p.x)
       u[,j] <- t.x

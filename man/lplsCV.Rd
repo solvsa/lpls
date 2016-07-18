@@ -49,7 +49,7 @@ If no segment list is supplied a horizontal leave-one-out CV is performed across
 %% ~put references to the literature/web site here ~
 }
 \author{
-Solve Sæbø
+Solve S?b?
 }
 \note{
 %%  ~~further notes~~
@@ -75,7 +75,10 @@ Solve Sæbø
     #To cross-validate vertically
     cv <- lplsCV(fit.endo, segments2=as.list(1:dim(X2)[2]))
     #Three-fold CV, horizontal
-    cv <- lplsCV(fit.endo, segments1=as.list(1:10, 11:20, 21:30))
+    segmat <- matrix(1:30, nrow=3, byrow=TRUE)
+    segs <- list()
+    for(i in 1:3){segs[[i]] <- segmat[i,]}
+    cv <- lplsCV(fit.endo, segments1=segs)
     
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

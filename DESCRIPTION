@@ -1,0 +1,13 @@
+Encoding: latin1
+Package: lpls
+Type: Package
+Title: Lpls data exploration and regression
+Version: 1.0.0
+Date: 2016-07-18
+Author: Solve Sæbø
+Maintainer: Solve Sæbø <solve.sabo@nmbu.no>
+Description: A package for performing endo or exo lpls
+Imports: car, graphics, stats, utils
+License: GPL-2
+
+
